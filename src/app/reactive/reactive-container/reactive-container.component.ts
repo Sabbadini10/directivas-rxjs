@@ -1,14 +1,37 @@
-import { Component } from '@angular/core';
-import { Observable, interval, filter, take, map } from 'rxjs';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { fromEvent, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-reactive-container',
   templateUrl: './reactive-container.component.html',
   styleUrls: ['./reactive-container.component.css']
 })
-export class ReactiveContainerComponent {
+export class ReactiveContainerComponent implements OnInit, OnDestroy {
 
-  /* constructor(){
+subscriptor: Subscription | null = null;
+
+x: number = 0;
+y: number = 0;
+
+
+  ngOnInit(){
+
+    const obs = fromEvent<MouseEvent>(document.querySelector('#area')!, 'mousemove');
+
+   this.subscriptor =  obs.subscribe((e) => {
+      console.log(this.x)
+      console.log(this.y)
+      console.log(e)
+      this.x = e.clientX;
+      this.y = e.clientY;
+    });
+  }
+
+  ngOnDestroy(){
+    this.subscriptor?.unsubscribe();
+  }
+
+  /*  constructor(){
     let numero = 0;
 
    const miObservable = new Observable<number>((observer) => {
@@ -36,19 +59,29 @@ export class ReactiveContainerComponent {
     }
 }
     );
-  } */
+  }
 
   miIntervalo: Observable<number> = interval(2000).pipe(
   map(value => value + 1),
   filter((value) => value % 2 == 0),
   take(5));
+
+miSubcripcion: Subscription | null = null;
+
   constructor(){}
 
   ngOnInit(): void{
-    this.miIntervalo.subscribe({
+     this.miSubcripcion = this.miIntervalo.subscribe({
       next: (value) => console.log(value),
       complete: () => console.log('Intervalo terminado'),
     });
+    console.log('COMPONENTE FUNCIONANDO')
   }
+
+
+  ngOnDestroy(){
+    this.miSubcripcion!.unsubscribe();
+console.log('COMPONENTE DESTRUIDO')
+  } */
 
 }

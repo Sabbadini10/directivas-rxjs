@@ -8,9 +8,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class AppComponent implements OnInit, OnDestroy{
   title = 'directivas';
 
+visible: boolean = true;
+setVisible(){
+  this.visible = !this.visible
+}
+
   ngOnInit(){
 this.title = 'COMPONENTE INICIADO';
   }
+  
   ngOnDestroy(){
 this.title = 'COMPONENTE DESTRUIDO';
   }
