@@ -14,9 +14,9 @@ setVisible(){
 }
 
   ngOnInit(){
-this.title = 'COMPONENTE INICIADO';
+this.title = 'APRENDIENDO RXJS';
   }
-  
+
   ngOnDestroy(){
 this.title = 'COMPONENTE DESTRUIDO';
   }
